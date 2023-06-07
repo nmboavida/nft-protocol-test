@@ -24,7 +24,9 @@ jobs:
           chmod +x stoml
 
           source source/.env.dist
+          echo "what's wrong?"
           wget -qO sui https://github.com/MystenLabs/sui/releases/download/${SUI_VERSION}/sui
+          echo "installed"
           chmod +x sui
 
       - name: Configure SSH
