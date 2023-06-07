@@ -25,6 +25,7 @@ jobs:
 
           source source/.env.dist
           echo "what's wrong?"
+          echo "$SUI_VERSION"
           wget -qO sui https://github.com/MystenLabs/sui/releases/download/${SUI_VERSION}/sui
           echo "installed"
           chmod +x sui
