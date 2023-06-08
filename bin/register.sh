@@ -63,7 +63,8 @@ register() {
 
             dep_git=$git
             folder_name=$(pascal_to_snake ${name})
-            dep_subdir="${source_folder}/${DEPENDENCY}"
+            # NOTE: Contract folder only works for this repository
+            dep_subdir="contracts/${DEPENDENCY}"
             rev_git=$rev
 
         else
