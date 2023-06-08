@@ -61,17 +61,17 @@ register() {
         # Check if the variable contains the element "local"
         if [[ "${entries[*]}" == *"local"* ]]; then
 
-        dep_git=$git
-        folder_name=$(pascal_to_snake ${name})
-        dep_subdir="${source_folder}/${folder_name}"
-        rev_git=$rev
+            dep_git=$git
+            folder_name=$(pascal_to_snake ${name})
+            dep_subdir="${source_folder}/${DEPENDENCY}"
+            rev_git=$rev
 
-    else
+        else
 
-        dep_git=$(${stoml} ${path} dependencies.${DEPENDENCY}.git)
-        rev_git=$(${stoml} ${path} dependencies.${DEPENDENCY}.rev)
-        dep_subdir=$(${stoml} ${path} dependencies.${DEPENDENCY}.subdir)
-    fi
+            dep_git=$(${stoml} ${path} dependencies.${DEPENDENCY}.git)
+            rev_git=$(${stoml} ${path} dependencies.${DEPENDENCY}.rev)
+            dep_subdir=$(${stoml} ${path} dependencies.${DEPENDENCY}.subdir)
+        fi
 
         path_object="{
             \"git\": \"${dep_git}\", \
