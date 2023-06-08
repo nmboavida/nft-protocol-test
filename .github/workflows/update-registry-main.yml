@@ -51,10 +51,12 @@ jobs:
           cp program-registry/registry-main.json registry-main.json
 
       - name: Update local Package Registry
+        env:
+          REVISION: ${{ github.event.inputs.optional_variable || github.sha }}
         run: |
           echo $(ls)
           echo "Registering under revision: ${{ github.sha }}"
-          ./source/bin/register-all.sh ${{ github.repository }} ${{ github.sha }} source/contracts remote registry-main.json
+          ./source/bin/register-all.sh ${{ github.repository }} $REVISION source/contracts remote registry-main.json
 
       - name: Update remote registry
         run: |
