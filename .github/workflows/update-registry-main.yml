@@ -1,6 +1,11 @@
 name: Update Package-Registry [Mainnet]
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      revision:
+        description: 'Commit Hash (Defaults to last commit)'
+        required: false
 
 jobs:
   update-registry:
@@ -52,7 +57,7 @@ jobs:
 
       - name: Update local Package Registry
         env:
-          REVISION: ${{ github.event.inputs.optional_variable || github.sha }}
+          REVISION: ${{ github.event.inputs.revision || github.sha }}
         run: |
           echo $(ls)
           echo "Registering under revision: ${{ github.sha }}"
