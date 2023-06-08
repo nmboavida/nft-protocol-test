@@ -10,11 +10,10 @@ script_dir=$(dirname "$0")
 # Source the other script using a relative path
 source "$script_dir/mappings.sh"
 
-# To avoid silent errors
-set -e
-
-
 register() {
+    # To avoid silent errors
+    set -e
+
     program=$1
     git="https://github.com/${2}.git"
     rev=$3
@@ -80,9 +79,11 @@ register() {
             \"rev\": \"${rev_git}\" \
         }"
 
-        mod_name=$(add_prefix ${program})
-        obj_id=$(parse_build_yaml ${program} ${name} ${mod_name})
+        dep_name_with_prefix=$(lowercase_to_snake_case ${DEPENDENCY})
+        dep_name_with_prefix=$(add_prefix ${dep_name_with_prefix})
+
         dep_name=$(lowercase_to_pascal ${DEPENDENCY})
+        obj_id="0x"$(parse_build_yaml ${program} ${name} ${dep_name_with_prefix})
 
         dependency_obj=$(jq -n --argjson path "$path_object" --arg objId "$obj_id" '{ "path": $path, "objectId": $objId }')
         dependencies_obj=$(jq --argjson val "$dependency_obj" --arg key "$dep_name" '.[$key] += $val' <<< "$dependencies_obj")
